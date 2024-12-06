@@ -22,9 +22,9 @@ class ChessVar:
 
     def _convert_position(self, pos):
         """Convert the given position to the corresponding chess position"""
-       col = ord(pos[0] - ord('a'))
-       row = 8 - int(pos[1])
-       return row, col
+        col = ord(pos[0]) - ord('a')  # Ensure this line uses consistent indentation
+        row = 8 - int(pos[1])
+        return row, col
 
     def _is_within_bounds(self, row, col):
         """Check if the given position is within the bounds of the board."""
@@ -34,7 +34,7 @@ class ChessVar:
         """Return the board for the given perspective."""
 
         def generate_hidden_board(player):
-            visible_board = [['*' for _ in range(8)] for in range(8)]
+            visible_board = [['*' for _ in range(8)] for _ in range(8)]
             for r in range(8):
                 for c in range(8):
                     piece = self._board[r][c]
@@ -66,7 +66,7 @@ class ChessVar:
         start_row, start_col = self._convert_position(start)
         end_row, end_col = self._convert_position(end)
 
-        if not self._is_within_bounds(start_row, start_col): or not self._is_within_bounds(end_row, end_col):
+        if not self._is_within_bounds(start_row, start_col) or not self._is_within_bounds(end_row, end_col):
             return False
 
         piece = self._board[start_row][start_col]
@@ -81,7 +81,7 @@ class ChessVar:
         self._board[start_row][start_col] = ' '
 
         if piece.lower() == 'k':
-            self._game_state == 'WHITE_WON' if self._turn == 'white' else 'BLACK_WON'
+            self._game_state = 'WHITE_WON' if self._turn == 'white' else 'BLACK_WON'
 
         self._turn = 'black' if self._turn == 'white' else 'white'
 
