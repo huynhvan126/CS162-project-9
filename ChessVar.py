@@ -100,8 +100,7 @@ class ChessVar:
             for dr, dc in king_moves:
                 if self._is_within_bounds(row + dr, col + dc):
                     target = self._board[row + dr][col + dc]
-                    if target == ' ' or (piece.isupper() and target.islower()) or (
-                            piece.islower() and target.isupper()):
+                    if target == ' ' or (piece.isupper() and target.islower()) or (piece.islower() and target.isupper()):
                         moves.append((row + dr, col + dc))
 
         return moves
@@ -149,9 +148,14 @@ class ChessVar:
         self._board[end_row][end_col] = piece
         self._board[start_row][start_col] = ' '
 
-        if piece.lower() == 'k':
-            self._game_state = 'WHITE_WON' if self._turn == 'white' else 'BLACK_WON'
-
+        if piece.lower() == 'k' and (end_row, end_col) in legal_moves:
+            if self._turn == 'white':
+                if 'k' not in [cell for row in self._board for cell in row]:
+                    self._game_state = 'WHITE_WON'
+            elif self._turn == 'black':
+                if 'K' not in [cell for row in self._board for cell in row]:
+                    self._game_state = 'BLACK_WON'
+                    
         self._turn = 'black' if self._turn == 'white' else 'white'
 
         return True
