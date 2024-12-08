@@ -64,7 +64,7 @@ class ChessVar:
             start_row = 6 if piece.isupper() else 1
 
             if self._is_within_bounds(row +direction +col) and self._board[row + direction][col] == ' ':
-            moves.append(row +direction + col)
+                moves.append(row +direction + col)
                 if row == start_row and self._board[row + 2 * direction][col] == ' ':
                 moves.append(row + 2 * direction, col)
 
