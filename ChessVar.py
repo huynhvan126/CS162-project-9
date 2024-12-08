@@ -56,7 +56,8 @@ class ChessVar:
 
     def _get_moves(self, row, col):
         """Return the possible moves for the given position."""
-        return []
+        piece = self._board[row][col]
+        moves = []
 
     def make_move(self, start, end):
         """Make a move on the given position."""
