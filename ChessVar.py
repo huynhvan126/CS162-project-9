@@ -59,7 +59,7 @@ class ChessVar:
         piece = self._board[row][col]
         moves = []
 
-        if piece.lower() == 'p':  # Pawn moves
+        if piece.lower() == 'p':
             direction = -1 if piece.isupper() else 1
             start_row = 6 if piece.isupper() else 1
 
@@ -74,6 +74,56 @@ class ChessVar:
                     target = self._board[row + direction][col + dc]
                     if (piece.isupper() and target.islower()) or (piece.islower() and target.isupper()):
                         moves.append((row + direction, col + dc))
+
+        elif piece.lower() == 'r':
+            moves += self._linear_moves(row, col, [(0, 1), (0, -1), (1, 0), (-1, 0)])
+
+        elif piece.lower() == 'n':
+            knight_moves = [(2, 1), (2, -1), (-2, 1), (-2, -1),
+                            (1, 2), (1, -2), (-1, 2), (-1, -2)]
+            for dr, dc in knight_moves:
+                if self._is_within_bounds(row + dr, col + dc):
+                    target = self._board[row + dr][col + dc]
+                    if target == ' ' or (piece.isupper() and target.islower()) or (
+                            piece.islower() and target.isupper()):
+                        moves.append((row + dr, col + dc))
+
+        elif piece.lower() == 'b':
+            moves += self._linear_moves(row, col, [(1, 1), (1, -1), (-1, 1), (-1, -1)])
+
+        elif piece.lower() == 'q':
+            moves += self._linear_moves(row, col, [(0, 1), (0, -1), (1, 0), (-1, 0),
+                                                   (1, 1), (1, -1), (-1, 1), (-1, -1)])
+
+        elif piece.lower() == 'k':
+            king_moves = [(1, 0), (-1, 0), (0, 1), (0, -1), (1, 1), (1, -1), (-1, 1), (-1, -1)]
+            for dr, dc in king_moves:
+                if self._is_within_bounds(row + dr, col + dc):
+                    target = self._board[row + dr][col + dc]
+                    if target == ' ' or (piece.isupper() and target.islower()) or (
+                            piece.islower() and target.isupper()):
+                        moves.append((row + dr, col + dc))
+
+        return moves
+
+    def _linear_moves(self, row, col, directions):
+        """Helper function to get linear moves for rooks, bishops, and queens."""
+        piece = self._board[row][col]
+        moves = []
+
+        for dr, dc in directions:
+            r, c = row + dr, col + dc
+            while self._is_within_bounds(r, c):
+                target = self._board[r][c]
+                if target == ' ':
+                    moves.append((r, c))
+                elif (piece.isupper() and target.islower()) or (piece.islower() and target.isupper()):
+                    moves.append((r, c))
+                    break
+                else:
+                    break
+                r += dr
+                c += dc
 
         return moves
 
