@@ -3,6 +3,7 @@
 # Date: 12/08/2024
 # Description: Create a class called ChessVar to implement an abstract board game based on a chess variant known as Fog of War chess.
 class ChessVar:
+    """Represents a chess variant game called Fog of War chess."""
     def __init__(self):
         """Initialise the ChessVar object"""
         self._board = [['r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'],
