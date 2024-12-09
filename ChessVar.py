@@ -22,7 +22,7 @@ class ChessVar:
 
     def _convert_position(self, pos):
         """Convert the given position to the corresponding chess position"""
-        col = ord(pos[0]) - ord('a')  # Ensure this line uses consistent indentation
+        col = ord(pos[0]) - ord('a')
         row = 8 - int(pos[1])
         return row, col
 
